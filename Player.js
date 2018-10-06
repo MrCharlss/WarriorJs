@@ -4,16 +4,26 @@ class Player {
   }
 
   playTurn(warrior) {
-    if (warrior.feel().isEmpty()) {
-      if (this.health > warrior.health()) {
-        if (warrior.feel().isEmpty()) {
-        } else {
-        }
-      } else {
-        warrior.rest();
+    if (this.health > warrior.health()) {
+      if (warrior.feel().isEmpty()) {
+        warrior.walk();
+      } else if (
+        warrior
+          .feel()
+          .getUnit()
+          .isBound()
+      ) {
+        warrior.rescue();
+      } else if (
+        warrior
+          .feel()
+          .getUnit()
+          .isEnemy()
+      ) {
+        warrior.attack();
       }
     } else {
-      warrior.attack();
+      warrior.rest();
     }
 
     this.health = warrior.health();
